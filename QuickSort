@@ -1,0 +1,54 @@
+public class HomeWork5 {
+    public static void main(String[] args) {
+
+        //First level: Сделать возможным выбирать различные опорные элементы для быстрой сортировки.
+        // Исправить для этого код урока.
+
+        int[] arr = new int[]{1, 122, -1, 7, 10, 4, 3, 55, 12};
+
+        System.out.println(Arrays.toString(arr));
+        quickSort(arr, 0, arr.length - 1);
+        System.out.println(Arrays.toString(arr));
+    }
+
+    public static void quickSort(int[] a, int start, int end) {
+
+        if (a.length == 0) {
+            return;
+        }
+        if (start >= end) {
+            return;
+        }
+        int indexPivot = getIndexPivot(a, start, end);
+        quickSort(a, start, indexPivot - 1);
+        quickSort(a, indexPivot + 1, end);
+    }
+    private static int getIndexPivot(int [] arr, int l, int r) {
+        int i, j, x = arr[(l + r) / 2];
+        i = l - 1;
+        j = r + 1;
+
+        do {
+            i++;
+        } while (arr[i] < x);
+
+        do {
+            j--;
+        } while (arr[j] > x);
+
+        if (i < j) {
+            int k = arr[i];
+            arr[i] = arr[j];
+            arr[j] = k;
+        } else {
+            return j;
+        }
+        return -1;
+    }
+
+}
+
+    //Second level: Привести пример худшего случая , в каком виде должны быть входные данные.
+    // Когда единственный опорный элемент - крайний элемент массива, в этом случае мы проходим каждый раз по
+    // всему массиву, сравнивая все элементы с опорным. Если в массиве 7 элементов,
+    // время выполнения будет n * (n - 1) * 0,5 = n^2 - квадратичное время выполнения, очень медленно
